@@ -1,31 +1,33 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 
-import {StyleSheet, View} from 'react-native';
 import {ShoppingListItem} from './components/ShoppingListItem';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
+
+const RootStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Home">
+      {props => <ShoppingListItem {...props} name="Coffee" />}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
 
 function App(): React.JSX.Element {
   return (
-    <View style={styles.container}>
-      <ShoppingListItem name="Coffee" />
-      <ShoppingListItem name="Tea" isCompleted />
-      <ShoppingListItem name="Sugar" isCompleted />
-    </View>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     justifyContent: 'center',
+//   },
+// });
 
 export default App;

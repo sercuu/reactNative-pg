@@ -1,7 +1,7 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from '../theme';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 type PropsShoppingListItem = {
   name: string;
@@ -42,14 +42,12 @@ export function ShoppingListItem({
         ]}>
         {name}
       </Text>
-      <TouchableOpacity
-        style={[
-          styles.button,
-          isCompleted ? styles.completedButton : undefined,
-        ]}
-        activeOpacity={0.8}
-        onPress={handleDelete}>
-        <Icon name="clock-circle" size={24} color={theme.colorRed} />
+      <TouchableOpacity activeOpacity={0.8} onPress={handleDelete}>
+        <Icon
+          name="closecircle"
+          size={24}
+          color={isCompleted ? theme.colorGrey : theme.colorRed}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -63,18 +61,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.colorCerulean,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 18,
   },
   completedContainer: {
     backgroundColor: theme.colorLightGrey,
     borderBottomColor: theme.colorLightGrey,
   },
   itemText: {fontSize: 18, fontWeight: 200},
-  button: {
-    backgroundColor: theme.colorBlack,
-    borderRadius: 6,
-  },
-  completedButton: {backgroundColor: theme.colorGrey},
+
   completedText: {
     textDecorationLine: 'line-through',
     color: theme.colorGrey,
