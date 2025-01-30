@@ -1,11 +1,15 @@
 import React from 'react';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from './Screens';
 import Counter from './Screens/Counter';
 import Idea from './Screens/Idea';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {theme} from './theme';
 
 // const Stack = createNativeStackNavigator();
 
@@ -26,14 +30,39 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tabs = createBottomTabNavigator();
 
 const RootTabs = () => (
-  <Tabs.Navigator>
-    <Tabs.Screen name="Home" options={{title: 'Home'}}>
+  <Tabs.Navigator
+    screenOptions={{
+      tabBarActiveTintColor: theme.colorCerulean,
+      tabBarInactiveTintColor: theme.colorGrey,
+    }}>
+    <Tabs.Screen
+      name="List"
+      options={{
+        title: 'List',
+        tabBarIcon: ({color, size}) => (
+          <Feather name="list" size={size} color={color} />
+        ),
+      }}>
       {() => <Home />}
     </Tabs.Screen>
-    <Tabs.Screen name="Counter" options={{title: 'Counter'}}>
+    <Tabs.Screen
+      name="Counter"
+      options={{
+        title: 'Counter',
+        tabBarIcon: ({color, size}) => (
+          <AntDesign name="clockcircleo" size={size} color={color} />
+        ),
+      }}>
       {() => <Counter />}
     </Tabs.Screen>
-    <Tabs.Screen name="Idea" options={{title: 'Idea'}}>
+    <Tabs.Screen
+      name="Idea"
+      options={{
+        title: 'Idea',
+        tabBarIcon: ({color, size}) => (
+          <FontAwesome5 name="lightbulb" size={size} color={color} />
+        ),
+      }}>
       {() => <Idea />}
     </Tabs.Screen>
   </Tabs.Navigator>

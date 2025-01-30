@@ -4,5 +4,6 @@ module.exports = {
   plugins: ['react-native'],
   rules: {
     'react-native/no-unused-styles': 2,
+    'react/no-unstable-nested-components': ['off'],
   },
 };
