@@ -1,12 +1,13 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {TabActions, useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation} from '@react-navigation/native';
 
 const Counter = (): React.JSX.Element => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.dispatch(TabActions.jumpTo('Idea', {user: 'Wojtek'}));
+    // console.log(navigation.getParent());
+    navigation.dispatch(StackActions.push('History'));
   };
 
   return (
