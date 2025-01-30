@@ -1,12 +1,12 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {StackActions, useNavigation} from '@react-navigation/native';
+import {TabActions, useNavigation} from '@react-navigation/native';
 
 const Counter = (): React.JSX.Element => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.dispatch(StackActions.push('Idea', {user: 'Wojtek'}));
+    navigation.dispatch(TabActions.jumpTo('Idea', {user: 'Wojtek'}));
   };
 
   return (
