@@ -1,9 +1,10 @@
 import {FlatList, StyleSheet, TextInput, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ShoppingListItem} from '../components/ShoppingListItem';
 
 import {theme} from '../theme';
 import {Text} from 'react-native';
+import {getFromStorage, saveToStorage} from '../utils/storage';
 
 export type ShoppingListItemType = {
   id: string;
@@ -34,6 +35,8 @@ function orderShoppingList(shoppingList: ShoppingListItemType[]) {
   });
 }
 
+const storage_key = 'shoppingList';
+
 const Home = (): React.JSX.Element => {
   const [value, setValue] = useState('');
   const [list, setList] = useState<ShoppingListItemType[]>([]);
@@ -50,13 +53,14 @@ const Home = (): React.JSX.Element => {
       ];
 
       setList(newList);
-
+      saveToStorage(storage_key, newList);
       setValue('');
     }
   };
   const handleDelete = (id: string) => {
     const newShoppingList = list.filter(item => item.id !== id);
     setList(newShoppingList);
+    saveToStorage(storage_key, newShoppingList);
   };
 
   const handleToggleComplete = (id: string) => {
@@ -72,9 +76,21 @@ const Home = (): React.JSX.Element => {
       }
       return item;
     });
-    // TODO
     setList(newList);
+    saveToStorage(storage_key, newList);
   };
+
+  useEffect(() => {
+    const fetchInitialList = async () => {
+      const data = await getFromStorage(storage_key);
+      console.log({data});
+      if (data) {
+        setList(data);
+      }
+    };
+    fetchInitialList();
+  }, []);
+
   return (
     <FlatList
       style={styles.container}
