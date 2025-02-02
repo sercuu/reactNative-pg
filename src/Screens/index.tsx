@@ -1,7 +1,7 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {ScrollView, StyleSheet, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import {ShoppingListItem} from '../components/ShoppingListItem';
-import {Link} from '@react-navigation/native';
+
 import {theme} from '../theme';
 
 type ShoppingListItemType = {
@@ -40,10 +40,9 @@ const Home = (): React.JSX.Element => {
     }
   };
   return (
-    <View style={styles.container}>
-      <Link screen="Counter" style={styles.link}>
-        <Text>Go to Counter</Text>
-      </Link>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}>
       <TextInput
         value={value}
         style={styles.TextInput}
@@ -59,7 +58,7 @@ const Home = (): React.JSX.Element => {
           isCompleted={item.isCompleted}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -68,11 +67,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  link: {
-    textAlign: 'center',
-    marginBottom: 18,
-    fontSize: 24,
+  contentContainer: {
+    paddingTop: 12,
   },
+
   TextInput: {
     borderColor: theme.colorLightGrey,
     borderWidth: 2,
