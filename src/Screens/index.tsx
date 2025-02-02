@@ -1,4 +1,10 @@
-import {FlatList, StyleSheet, TextInput, View} from 'react-native';
+import {
+  FlatList,
+  LayoutAnimation,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ShoppingListItem} from '../components/ShoppingListItem';
 
@@ -52,6 +58,7 @@ const Home = (): React.JSX.Element => {
         },
       ];
 
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setList(newList);
       saveToStorage(storage_key, newList);
       setValue('');
@@ -59,6 +66,7 @@ const Home = (): React.JSX.Element => {
   };
   const handleDelete = (id: string) => {
     const newShoppingList = list.filter(item => item.id !== id);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setList(newShoppingList);
     saveToStorage(storage_key, newShoppingList);
   };
@@ -76,6 +84,8 @@ const Home = (): React.JSX.Element => {
       }
       return item;
     });
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
     setList(newList);
     saveToStorage(storage_key, newList);
   };
@@ -85,6 +95,7 @@ const Home = (): React.JSX.Element => {
       const data = await getFromStorage(storage_key);
       console.log({data});
       if (data) {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setList(data);
       }
     };
