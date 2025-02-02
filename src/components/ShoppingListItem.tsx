@@ -5,9 +5,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {theme} from '../theme';
-import Icon from 'react-native-vector-icons/AntDesign';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 type PropsShoppingListItem = {
   name: string;
@@ -46,16 +48,24 @@ export function ShoppingListItem({
         styles.itemContainer,
         isCompleted ? styles.completedContainer : undefined,
       ]}>
-      <Text
-        numberOfLines={1} // avoid the multiple line
-        style={[
-          styles.itemText,
-          isCompleted ? styles.completedText : undefined,
-        ]}>
-        {name}
-      </Text>
+      <View style={styles.row}>
+        <EntypoIcon
+          name={isCompleted ? 'check' : 'circle'}
+          size={24}
+          color={isCompleted ? theme.colorGrey : theme.colorCerulean}
+        />
+        <Text
+          numberOfLines={1} // avoid the multiple line
+          style={[
+            styles.itemText,
+            isCompleted ? styles.completedText : undefined,
+          ]}>
+          {name}
+        </Text>
+      </View>
+
       <TouchableOpacity activeOpacity={0.8} onPress={handleDelete}>
-        <Icon
+        <AntDesignIcon
           name="closecircle"
           size={24}
           color={isCompleted ? theme.colorGrey : theme.colorRed}
@@ -66,6 +76,12 @@ export function ShoppingListItem({
 }
 
 const styles = StyleSheet.create({
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+  },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -79,8 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colorLightGrey,
     borderBottomColor: theme.colorLightGrey,
   },
-  itemText: {fontSize: 18, fontWeight: 200},
-
+  itemText: {flex: 1, fontSize: 18, fontWeight: 200},
   completedText: {
     textDecorationLine: 'line-through',
     color: theme.colorGrey,

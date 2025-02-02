@@ -5,11 +5,34 @@ import {ShoppingListItem} from '../components/ShoppingListItem';
 import {theme} from '../theme';
 import {Text} from 'react-native';
 
-type ShoppingListItemType = {
+export type ShoppingListItemType = {
   id: string;
   name: string;
   completedAtTimeStamp?: number;
+  lastUpdatedTimestamp: number;
 };
+
+function orderShoppingList(shoppingList: ShoppingListItemType[]) {
+  return shoppingList.sort((item1, item2) => {
+    if (item1.completedAtTimeStamp && item2.completedAtTimeStamp) {
+      return item2.completedAtTimeStamp - item1.completedAtTimeStamp;
+    }
+
+    if (item1.completedAtTimeStamp && !item2.completedAtTimeStamp) {
+      return 1;
+    }
+
+    if (!item1.completedAtTimeStamp && item2.completedAtTimeStamp) {
+      return -1;
+    }
+
+    if (!item1.completedAtTimeStamp && !item2.completedAtTimeStamp) {
+      return item2.lastUpdatedTimestamp - item1.lastUpdatedTimestamp;
+    }
+
+    return 0;
+  });
+}
 
 const Home = (): React.JSX.Element => {
   const [value, setValue] = useState('');
@@ -17,9 +40,17 @@ const Home = (): React.JSX.Element => {
 
   const handleSubmit = () => {
     if (value) {
-      setList(prevState => {
-        return [{name: value, id: new Date().toTimeString()}, ...prevState];
-      });
+      const newList = [
+        ...list,
+        {
+          name: value,
+          id: new Date().toTimeString(),
+          lastUpdatedTimestamp: Date.now(),
+        },
+      ];
+
+      setList(newList);
+
       setValue('');
     }
   };
@@ -33,6 +64,7 @@ const Home = (): React.JSX.Element => {
       if (item.id === id) {
         return {
           ...item,
+          lastUpdatedTimestamp: Date.now(),
           completedAtTimeStamp: item.completedAtTimeStamp
             ? undefined
             : Date.now(),
@@ -48,7 +80,7 @@ const Home = (): React.JSX.Element => {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       stickyHeaderIndices={[0]}
-      data={list}
+      data={orderShoppingList(list)}
       ListEmptyComponent={() => (
         <View style={styles.emptyListContainer}>
           <Text>Your list is empty!</Text>
