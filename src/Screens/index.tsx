@@ -42,7 +42,8 @@ const Home = (): React.JSX.Element => {
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={styles.contentContainer}>
+      contentContainerStyle={styles.contentContainer}
+      stickyHeaderIndices={[0]}>
       <TextInput
         value={value}
         style={styles.TextInput}
@@ -66,11 +67,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    padding: 12,
   },
   contentContainer: {
-    paddingTop: 12,
+    paddingBottom: 24,
   },
-
   TextInput: {
     borderColor: theme.colorLightGrey,
     borderWidth: 2,
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontSize: 16,
     borderRadius: 15,
+    backgroundColor: theme.colorWhite,
   },
 });
 export default Home;
