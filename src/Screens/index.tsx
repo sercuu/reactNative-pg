@@ -32,10 +32,10 @@ const Home = (): React.JSX.Element => {
     const newList = list.map(item => {
       if (item.id === id) {
         return {
+          ...item,
           completedAtTimeStamp: item.completedAtTimeStamp
             ? undefined
             : Date.now(),
-          ...item,
         };
       }
       return item;

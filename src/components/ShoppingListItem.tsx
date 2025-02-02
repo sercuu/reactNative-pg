@@ -47,6 +47,7 @@ export function ShoppingListItem({
         isCompleted ? styles.completedContainer : undefined,
       ]}>
       <Text
+        numberOfLines={1} // avoid the multiple line
         style={[
           styles.itemText,
           isCompleted ? styles.completedText : undefined,
